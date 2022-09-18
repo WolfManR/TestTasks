@@ -29,5 +29,16 @@ namespace TestTasksTests
             var result = _mathService.IsTriangleRectangular(greatest, lowestSides);
             Assert.Equal(expected, result);
         }
+
+        [Theory]
+        [InlineData(new double[] {3,2,1,2,3,5 }, 5)]
+        [InlineData(new double[] {3.4,2.2,2.1,2.4,3,5 }, 5)]
+        [InlineData(new double[] {2.11,2.1,2 }, 2.11)]
+        public void GreaterValueIsGreater(double[] values, double expectedGreaterValue)
+        {
+            _mathService.FindGreatestSide(out var greatest, out _, values);
+
+            Assert.Equal(expectedGreaterValue, greatest);
+        }
     }
 }
