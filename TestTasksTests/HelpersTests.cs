@@ -1,15 +1,9 @@
-using ShapeMath;
+using static ShapeMath.MathHelper;
 
 namespace TestTasksTests;
 
 public class HelpersTests
 {
-    private readonly MathSh _mathService;
-    public HelpersTests()
-    {
-        _mathService = new();
-    }
-
     [Theory]
     [InlineData(2.24, new double[] { 2, 1 }, true)]
     [InlineData(2.83, new double[] { 2, 2 }, true)]
@@ -17,7 +11,7 @@ public class HelpersTests
     [InlineData(1, new double[] { 1, 1 }, false)]
     public void TriangleRectangularCheckCorrect(double greatest, double[] lowestSides, bool expected)
     {
-        var result = _mathService.IsTriangleRectangular(greatest, lowestSides);
+        var result = IsTriangleRectangular(greatest, lowestSides);
         Assert.Equal(expected, result);
     }
 
@@ -27,7 +21,7 @@ public class HelpersTests
     [InlineData(new double[] { 2.11, 2.1, 2 }, 2.11)]
     public void GreaterValueIsGreater(double[] values, double expectedGreaterValue)
     {
-        _mathService.FindGreatestSide(out var greatest, out _, values);
+        FindGreatestSide(out var greatest, out _, values);
 
         Assert.Equal(expectedGreaterValue, greatest);
     }
