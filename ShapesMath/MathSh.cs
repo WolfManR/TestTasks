@@ -1,10 +1,12 @@
 ﻿namespace ShapeMath;
 
-public static class MathSh
+public class MathSh
 {
-    public static double CircleArea(double radius) => Math.PI * ValueSquare(radius);
+    public double FloatNumbersCompareToleranceValue = 0.02;
 
-    public static double TriangleAreaBySides(double sideA, double sideB, double sideC)
+    public double CircleArea(double radius) => Math.PI * ValueSquare(radius);
+
+    public double TriangleAreaBySides(double sideA, double sideB, double sideC)
     {
         FindGreatestSide(out var greatest, out var lowestSides, sideA, sideB, sideC);
         if (IsTriangleRectangular(greatest, lowestSides)) return .5 * lowestSides[0] * lowestSides[1];
@@ -12,7 +14,7 @@ public static class MathSh
         return Math.Sqrt(halfPerimeter * (halfPerimeter - sideA) * (halfPerimeter - sideB) * (halfPerimeter - sideC));
     }
 
-    public static void FindGreatestSide(out double greatest, out double[] lowestSides, params double[] sides)
+    public void FindGreatestSide(out double greatest, out double[] lowestSides, params double[] sides)
     {
         greatest = sides[0];
         lowestSides = new double[sides.Length - 1];
@@ -29,10 +31,12 @@ public static class MathSh
         }
     }
 
-    public static bool IsTriangleRectangular(double greatest, IReadOnlyList<double> lowestSides)
+    public bool IsTriangleRectangular(double greatest, IReadOnlyList<double> lowestSides)
     {
-        return Math.Abs(ValueSquare(greatest) - (ValueSquare(lowestSides[0]) + ValueSquare(lowestSides[1]))) < 0.0002;
+        var greatestSquare = ValueSquare(greatest);
+        var lowestsSquareSum = ValueSquare(lowestSides[0]) + ValueSquare(lowestSides[1]);
+        return Math.Abs(greatestSquare - lowestsSquareSum) < FloatNumbersCompareToleranceValue;
     }
 
-    public static double ValueSquare(double value) => value * value;
+    public double ValueSquare(double value) => value * value;
 }
