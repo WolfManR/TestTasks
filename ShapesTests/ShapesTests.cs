@@ -13,6 +13,28 @@ public class ShapesTests
     }
 
     [Fact]
+    public void RectangularTriangleIsRectangular()
+    {
+        var triangle = new Triangle(2.24, 2, 1);
+        triangle.FloatCompareTolerance = 0.02;
+
+        var result = triangle.IsRectangular();
+
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void NotRectangularTriangleIsNotRectangular()
+    {
+        var triangle = new Triangle(3.54, 2.45, 2);
+        triangle.FloatCompareTolerance = 0.02;
+
+        var result = triangle.IsRectangular();
+
+        Assert.False(result);
+    }
+
+    [Fact]
     public void AreaForCircleCalculable()
     {
         var  circle = new Circle(14);
